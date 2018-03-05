@@ -1,18 +1,117 @@
-hash: 5c742a30be9a69566107fe8d69ba63839e5f6e07c639554d161c8cb457fc5a11
-updated: 2018-03-02T20:04:45.694413-08:00
+hash: 86348d4c1bdd5ea78058a0b91902b18a144783fad8fbb798b1c8ab66451e9b54
+updated: 2018-03-04T21:48:21.533238-08:00
 imports:
+- name: github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com
+  version: 81737607f207409f43f04723decc160733ec5f7d
+  subpackages:
+  - vending
 - name: github.com/dgrijalva/jwt-go
   version: dbeaa9332f19a944acb5736b4456cfcc02140e29
+- name: github.com/dominicphillips/amazing
+  version: cb987417d19c613c4c104e1f8bf47bf8d5bfe0c5
 - name: github.com/go-redis/cache
   version: 3f6cdf066d4206924422d4dcdb2cc7b93cfc600d
+- name: github.com/golang/glog
+  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
+- name: github.com/golang/protobuf
+  version: 925541529c1fa6821df4e44ce2723319eb2be768
+  subpackages:
+  - jsonpb
+  - proto
+  - protoc-gen-go
+  - protoc-gen-go/descriptor
+  - ptypes
+  - ptypes/any
+  - ptypes/duration
+  - ptypes/empty
+  - ptypes/struct
+  - ptypes/timestamp
 - name: github.com/gorilla/mux
   version: 53c1911da2b537f792e7cafcb446b05ffe33b996
+- name: github.com/grpc-ecosystem/grpc-gateway
+  version: 07f5e79768022f9a3265235f0db4ac8c3f675fec
+  subpackages:
+  - protoc-gen-grpc-gateway
+  - protoc-gen-swagger
+  - runtime
+  - runtime/internal
+  - utilities
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
 - name: github.com/lib/pq
-  version: d8eeeb8bae8896dd8e1b7e514ab0d396c4f12a1b
+  version: 88edab0803230a3898347e77b474f8c1820a1f20
+  subpackages:
+  - oid
 - name: github.com/mattes/migrate
   version: 035c07716cd373d88456ec4d701402df52584cb4
+  subpackages:
+  - database
+  - database/postgres
+  - migrate
+  - source
+  - source/file
+- name: github.com/rogpeppe/fastuuid
+  version: 6724a57986aff9bff1a1770e9347036def7c89f6
+- name: github.com/satori/go.uuid
+  version: 36e9d2ebbde5e3f13ab2e25625fd453271d6522e
+- name: github.com/Sirupsen/logrus
+  version: f4ee69125072b22721efbe639bd0da9c9d19b8cc
+  repo: git@github.com:/sirupsen/logrus
+  vcs: git
+- name: github.com/sirupsen/logrus
+  version: f4ee69125072b22721efbe639bd0da9c9d19b8cc
 - name: github.com/spf13/cobra
   version: 7b2c5ac9fc04fc5efafb60700713d4fa609b777b
+- name: github.com/spf13/pflag
+  version: ee5fd03fd6acfd43e44aea0b4135958546ed8e73
+- name: golang.org/x/net
+  version: 22ae77b79946ea320088417e4d50825671d82d57
+  subpackages:
+  - context
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - lex/httplex
+  - trace
+- name: golang.org/x/text
+  version: b7ef84aaf62aa3e70962625c80a571ae7c17cb40
+  subpackages:
+  - secure/bidirule
+  - transform
+  - unicode/bidi
+  - unicode/norm
+- name: google.golang.org/genproto
+  version: 2c5e7ac708aaa719366570dd82bda44541ca2a63
+  subpackages:
+  - googleapis/api/annotations
+  - googleapis/rpc/errdetails
+  - googleapis/rpc/status
+- name: google.golang.org/grpc
+  version: 8e4536a86ab602859c20df5ebfd0bd4228d08655
+  subpackages:
+  - balancer
+  - balancer/base
+  - balancer/roundrobin
+  - codes
+  - connectivity
+  - credentials
+  - encoding
+  - encoding/proto
+  - grpclb/grpc_lb_v1/messages
+  - grpclog
+  - internal
+  - keepalive
+  - metadata
+  - naming
+  - peer
+  - resolver
+  - resolver/dns
+  - resolver/passthrough
+  - stats
+  - status
+  - tap
+  - transport
 - name: gopkg.in/dgrijalva/jwt-go.v2
   version: dbeaa9332f19a944acb5736b4456cfcc02140e29
 testImports: []

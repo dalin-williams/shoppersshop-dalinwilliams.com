@@ -5,6 +5,8 @@ import:
 - package: github.com/lib/pq
 - package: github.com/mattes/migrate
   version: ^3.0.1
+  subpackages:
+  - migrate
 - package: github.com/gorilla/mux
   version: ^1.6.1
 - package: github.com/dgrijalva/jwt-go
@@ -13,3 +15,21 @@ import:
   version: ^3.1.0
 - package: github.com/spf13/cobra
   version: ^0.0.1
+- package: github.com/sirupsen/logrus
+  version: master
+- package: github.com/Sirupsen/logrus
+  version: master
+  repo: git@github.com:/sirupsen/logrus
+  vcs: git
+- package: github.com/dominicphillips/amazing
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com
+  version: ^0.1.0
+  subpackages:
+  - vending
+- package: google.golang.org/grpc
+  version: ^1.10.0
+  subpackages:
+  - credentials
