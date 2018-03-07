@@ -4,5 +4,11 @@
       "amazon_access_key": "AKIAJPE2QNQJEARW7SLA",
       "amazon_secret_key":"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"
     }
+  },
+  "database": {
+    "database_name": "vendingmachine",
+    "username": "vendor",
+    "password": "venderbender",
+    "sslmode": "disable"
   }
 }

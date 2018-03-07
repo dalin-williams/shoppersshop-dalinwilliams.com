@@ -5,11 +5,15 @@ import (
 	"net/http"
 	"path"
 	"strings"
+	"io/ioutil"
+	"encoding/json"
 
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"github.com/spf13/cobra"
+	"github.com/pkg/errors"
 
 	vending "github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com/vending"
 )
@@ -88,10 +92,24 @@ func Run(address string, opts ...runtime.ServeMuxOption) error {
 }
 
 func main() {
-	flag.Parse()
-	defer glog.Flush()
+	var configPath string
+	root := &cobra.Command{
+		Use: "vendor",
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+			b, err := ioutil.ReadFile(configPath)
+			if err != nil {
+				return errors.Wrapf(err, `failed to read config file at "%s"`, configPath)
+			}
 
-	if err := Run(":8080"); err != nil {
-		glog.Fatal(err)
+			if err := json.Unmarshal(b, &config); err != nil {
+				return errors.Wrapf(err, `failed to parse config file at "%s"`, configPath)
+			}
+
+			glog.Infof(`using config found at "%s"`, configPath)
+			return nil
+		},
 	}
+	root.AddCommand(cmdMigrate)
+
+
 }
