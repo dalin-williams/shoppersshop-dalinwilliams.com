@@ -1,23 +1,38 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
-	"net/http"
-	"path"
-	"strings"
-
+	vending "github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com/vending"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/pkg/errors"
+	"github.com/spf13/cobra"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
+	"io/ioutil"
+	"net/http"
+	"strings"
 
-	vending "github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com/vending"
+	"os"
+	"path/filepath"
+	rt "runtime"
 )
 
 var (
+	_, b, _, _ = rt.Caller(0)
+	basepath   = filepath.Dir(b)
+
+	apiPath = "/"
+
+	ctxShutdown context.CancelFunc
+	//ctxRoot context.Context
+
 	vendEndPoint = flag.String("vending_endpoint", "localhost:9090", "endpoint of VendingMachineService")
 
-	swaggerDir = flag.String("swagger_dir", "github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com/vending", "path to the directory which contains swagger definitions")
+	swaggerDir  = flag.String("swagger_dir", basepath+"/vendor/github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com/vending", "path to the directory which contains swagger definitions")
+	swaggerFile = string(*swaggerDir + "/vending.swagger.json")
+	///github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com/vending/vending.swagger.json
 )
 
 // newGateway returns a new gateway server which translates HTTP into gRPC.
@@ -33,15 +48,16 @@ func newGateway(ctx context.Context, opts ...runtime.ServeMuxOption) (http.Handl
 }
 
 func serveSwagger(w http.ResponseWriter, r *http.Request) {
-	if !strings.HasSuffix(r.URL.Path, ".swagger.json") {
+	if !strings.HasSuffix( /*r.URL.Path*/ swaggerFile, ".swagger.json") {
 		glog.Errorf("Not Found: %s", r.URL.Path)
 		http.NotFound(w, r)
 		return
 	}
 
-	glog.Infof("Serving %s", r.URL.Path)
-	p := strings.TrimPrefix(r.URL.Path, "/swagger/")
-	p = path.Join(*swaggerDir, p)
+	glog.Infof("Serving %s" /*r.URL.Path*/)
+	//p := strings.TrimPrefix( /*r.URL.Path*/ swaggerFile, "/swagger/")
+	//p = path.Join(*swaggerDir, p)
+	p := swaggerFile
 	http.ServeFile(w, r, p)
 }
 
@@ -82,16 +98,40 @@ func Run(address string, opts ...runtime.ServeMuxOption) error {
 	if err != nil {
 		return err
 	}
-	mux.Handle("/", gw)
+	mux.Handle(apiPath, gw)
 
 	return http.ListenAndServe(address, allowCORS(mux))
 }
 
 func main() {
-	flag.Parse()
-	defer glog.Flush()
+	var configPath string
+	root := &cobra.Command{
+		Use: "vendor",
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
+			if configPath == "" {
+				configPath = "./config/config.json"
+			}
+			b, err := ioutil.ReadFile(configPath)
+			if err != nil {
+				return errors.Wrapf(err, `failed to read config file at "%s"`, configPath)
+			}
 
-	if err := Run(":8080"); err != nil {
-		glog.Fatal(err)
+			if err := json.Unmarshal(b, &config); err != nil {
+				return errors.Wrapf(err, `failed to parse config file at "%s"`, configPath)
+			}
+
+			glog.Infof(`using config found at "%s"`, configPath)
+			return nil
+		},
+	}
+	root.AddCommand(cmdMigrate)
+	root.AddCommand(cmdServer)
+	root.PersistentFlags().AddGoFlagSet(flag.CommandLine)
+	flag.CommandLine.Parse([]string{})
+	root.PersistentFlags().StringVarP(&configPath, "config", "c", "./config/config.json", "path to config file")
+	root.ParseFlags(os.Args)
+
+	if err := root.Execute(); err != nil {
+		shutdown(1, "failed to parse command line: %v", err)
 	}
 }
