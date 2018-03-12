@@ -3,17 +3,16 @@ package main
 import (
 	"flag"
 
-	"github.com/spf13/cobra"
 	"github.com/golang/glog"
-
-
-	)
+	"github.com/spf13/cobra"
+)
 
 var cmdServer = &cobra.Command{
-	Use: "server",
+	Use:     "server",
 	Aliases: []string{"serve"},
-	Short: "starts the api server",
-	Run: func(cmd *cobra.Command, args []string){
+	Short:   "starts the api server",
+	Run: func(cmd *cobra.Command, args []string) {
+		glog.Infof("Starting the magic on port 8080")
 		flag.Parse()
 		defer glog.Flush()
 
