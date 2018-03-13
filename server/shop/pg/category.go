@@ -2,6 +2,6 @@ package pg
 
 import "github.com/jmoiron/sqlx"
 
-type vend struct {
+type category struct {
 	db *sqlx.DB
 }

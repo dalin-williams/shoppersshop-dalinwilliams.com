@@ -37,12 +37,5 @@ func init() {
 		}
 		m.Steps(2)
 
-		/*for v := range c {
-			if err, ok := v.(error); ok {
-				glog.Errorf("migration error: %v", err)
-			} else {
-				glog.Info(v)
-			}
-		}*/
 	}
 }

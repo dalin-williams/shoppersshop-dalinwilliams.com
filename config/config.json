@@ -10,5 +10,28 @@
     "username": "vendor",
     "password": "venderbender",
     "sslmode": "disable"
+  },
+  "shop":{
+    "devices": "pg",
+    "drivers": {
+      "services": {
+        "amazon": {
+          "amazon_access_name": "owlsnest-20",
+          "amazon_access_key": "AKIAJPE2QNQJEARW7SLA",
+          "amazon_secret_key": "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"
+        }
+      },
+      "pg":{
+        "database_name":  "vendingmachine",
+        "username":       "vendor",
+        "password":       "venderbender",
+        "sslmode":        "disable"
+      }
+    },
+    "inventory":  "services",
+    "session":    "pg",
+    "vend":       "pg",
+    "category":   "pg",
+    "pay":        "pg"
   }
 }

@@ -33,3 +33,4 @@ import:
   version: ^1.10.0
   subpackages:
   - credentials
+- package: github.com/jmoiron/sqlx

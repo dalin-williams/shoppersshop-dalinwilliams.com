@@ -1,12 +1,12 @@
-hash: 86348d4c1bdd5ea78058a0b91902b18a144783fad8fbb798b1c8ab66451e9b54
-updated: 2018-03-04T21:48:21.533238-08:00
+hash: fcfb4356d01723be74535378b21ce566ed9f60a885521c073735bb369c3aa3c2
+updated: 2018-03-12T13:48:15.998539-07:00
 imports:
 - name: github.com/dalin-williams/shoppersshop-protoc-dalinwilliams-com
   version: 81737607f207409f43f04723decc160733ec5f7d
   subpackages:
   - vending
 - name: github.com/dgrijalva/jwt-go
-  version: dbeaa9332f19a944acb5736b4456cfcc02140e29
+  version: 06ea1031745cb8b3dab3f6a236daf2b0aa468b7e
 - name: github.com/dominicphillips/amazing
   version: cb987417d19c613c4c104e1f8bf47bf8d5bfe0c5
 - name: github.com/go-redis/cache
@@ -38,6 +38,8 @@ imports:
   - utilities
 - name: github.com/inconshreveable/mousetrap
   version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/jmoiron/sqlx
+  version: cf35089a197953c69420c8d0cecda90809764b1d
 - name: github.com/lib/pq
   version: 88edab0803230a3898347e77b474f8c1820a1f20
   subpackages:
@@ -50,6 +52,8 @@ imports:
   - migrate
   - source
   - source/file
+- name: github.com/pkg/errors
+  version: 816c9085562cd7ee03e7f8188a1cfd942858cded
 - name: github.com/rogpeppe/fastuuid
   version: 6724a57986aff9bff1a1770e9347036def7c89f6
 - name: github.com/satori/go.uuid
@@ -113,5 +117,5 @@ imports:
   - tap
   - transport
 - name: gopkg.in/dgrijalva/jwt-go.v2
-  version: dbeaa9332f19a944acb5736b4456cfcc02140e29
+  version: 06ea1031745cb8b3dab3f6a236daf2b0aa468b7e
 testImports: []
