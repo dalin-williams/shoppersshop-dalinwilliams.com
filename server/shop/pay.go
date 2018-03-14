@@ -5,13 +5,12 @@ import "github.com/satori/go.uuid"
 type PayCurrency struct {
 	Name		string		`json:"name"`		
 	Country 	string		`json:"country"`
-	Symbol		string		`json:"symbol"`
-	format		string		`json:"format"`
+	Format		string		`json:"format"`
 }
 
 type PayObj struct {
 	Currency 	PayCurrency		`json:"currency"`
-	Payment		float32			`json:"payment"`
+	Payment		float64			`json:"payment"`
 }
 
 type Pay interface {

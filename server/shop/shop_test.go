@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"testing"
 
+
 	_ "github.com/lib/pq"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattes/migrate/database/postgres"
 	"github.com/mattes/migrate"
-
-
-	"github.com/funkeyfreak/vending-machine-api/etc"
-	"github.com/funkeyfreak/vending-machine-api/server/shop/pg"
-	"github.com/funkeyfreak/vending-machine-api/server/shop/services"
-	"github.com/funkeyfreak/vending-machine-api/server/shop"
 	"github.com/stretchr/testify/assert"
+
+
+	"github.com/funkeyfreak/vending-machine-api/server/shop/pg"
+	_"github.com/funkeyfreak/vending-machine-api/server/shop/services"
+	"github.com/funkeyfreak/vending-machine-api/server/shop"
 )
 
 // a container for all of our test resources
@@ -64,8 +64,7 @@ func TestApp(t *testing.T) {
 	t.Run("services", serviceTests(t).run)
 }
 
-func serviceTests(t *testing.T) *appTests {
-	testObj := appTests{}
+func pgTests(t *testing.T) *appTests {testObj := appTests{}
 
 	conn, err := setupTestDatabase()
 	if err != nil {
@@ -73,13 +72,24 @@ func serviceTests(t *testing.T) *appTests {
 		return &testObj
 	}
 
-	newShop, err  = shop.New(pg.Driver(conn))
+	newShop, err := shop.New(pg.Driver(conn))
 	if err != nil {
 		t.Errorf("could not create pg store: %v", err)
 	}
 
 	return &appTests{
-		Shop: newShop
+		Shop: newShop,
+	}
+}
+
+func serviceTests(t *testing.T) *appTests {
+	s, err := shop.Open("services")
+	if !assert.NoError(t, err) {
+		return new(appTests)
+	}
+
+	return &appTests{
+		Shop: s,
 	}
 }
 

@@ -3,11 +3,11 @@ package services
 import (
 
 	"github.com/funkeyfreak/vending-machine-api/server/shop"
-	"github.com/funkeyfreak/vending-machine-api/server/shop/services/amazon"
+	"github.com/funkeyfreak/vending-machine-api/server/shop/services/service"
 )
 
 type driver struct {
-	Amazon         amazon.Amazon `json:"amazon"`
+	Amazon         amazon.Amazon `json:"service"`
 
 	services	   map[string]shop.Service
 
@@ -15,7 +15,7 @@ type driver struct {
 
 func (d *driver) GenerateServices() error {
 	d.services = make(map[string]shop.Service)
-	d.services["amazon"] = &d.Amazon
+	d.services["service"] = &d.Amazon
 
 	return nil
 }

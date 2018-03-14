@@ -7,7 +7,7 @@ import (
 type InventoryQuery struct {
 	Categories []CategoriesObj 	`json:"categories"`
 	Name		string			`json:"name"`
-	Price		float32			`json:"price"`
+	Price		float64			`json:"price"`
 }
 
 type InventoryDetails struct {
@@ -16,22 +16,25 @@ type InventoryDetails struct {
 }
 
 type InventoryObj struct {
-	 Id uuid.UUID 				`json:"id"`
-	 Name string				`json:"name"`
-	 Cost	float32				`json:"cost"`
-	 Url	string				`json:"url"`
-	 Resources struct {
-	 	Images	[]string 		`json:"images"`
-	 } 							`json:"resources"`
+	 Id 		uuid.UUID 			`json:"id"`
+	 ASIN 		string				`json:"asin"`
+	 Name 		string				`json:"name"`
+	 Cost		PayObj				`json:"cost"`
+	 Url		string				`json:"url"`
+	 Resources 	InventoryResource	`json:"resources"`
 }
 
-type InventoryPagination struct {
+type InventoryResource struct {
+	Images	[]string 		`json:"images"`
+}
+
+	type InventoryPagination struct {
 	PaginationUri	string	`json:"pagination_uri"`
 }
 
 type Inventory interface {
 	// Gets an item by Inventory Query object
-	FindItemByName(...InventoryQuery)(inventoryItems []InventoryObj, err error)
+	FindItemByName(query InventoryQuery)(inventoryItems []InventoryObj, err error)
 
 	// Gets all categories and stores
 	FetchAllCategoriesAndStores() (inventoryCategories []InventoryDetails, err error)
